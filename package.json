@@ -1,5 +1,5 @@
 {
-  "name": "qaai",
+  "name": "qaai-cli",
   "version": "1.0.0",
   "description": "Personal CLI automation tool — open URLs, apps, search, and dev workflows",
   "type": "module",

@@ -1,0 +1,9 @@
+.git/
+*.md
+!README.md
+command-optimization.md
+commands-redesign.md
+publish-guide.md
+cli-plan.md
+PLAN.md
+config/settings.json
