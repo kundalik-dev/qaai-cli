@@ -1,0 +1,8 @@
+{
+  "github": "https://github.com",
+  "gmail": "https://mail.google.com",
+  "youtube": "https://youtube.com",
+  "stackoverflow": "https://stackoverflow.com",
+  "npmjs": "https://npmjs.com",
+  "localhost": "http://localhost:3000"
+}
