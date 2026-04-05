@@ -1,392 +1,505 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QAAI CLI Cheat Sheet</title>
-  <style>
-    :root[data-theme="dark"] {
-      --bg: #2b2b2b;
-      --card-bg: #3a3a3a;
-      --code-bg: #4a4a4a;
-      --text: #e0e0e0;
-      --text-muted: #aaa;
-      --heading: #f0a500;
-      --border: #555;
-      --copy-btn: #666;
-      --copy-btn-hover: #888;
-      --copy-success: #4caf50;
-      --toggle-bg: #555;
-      --shadow: rgba(0,0,0,0.4);
-      --quick-bg: #1e1e1e;
-      --quick-border: #444;
-      --quick-tag: #3a3a3a;
-    }
-    :root[data-theme="light"] {
-      --bg: #f4f4f4;
-      --card-bg: #ffffff;
-      --code-bg: #e8e8e8;
-      --text: #222;
-      --text-muted: #555;
-      --heading: #c07000;
-      --border: #ccc;
-      --copy-btn: #bbb;
-      --copy-btn-hover: #999;
-      --copy-success: #388e3c;
-      --toggle-bg: #ccc;
-      --shadow: rgba(0,0,0,0.1);
-      --quick-bg: #fff;
-      --quick-border: #ddd;
-      --quick-tag: #eee;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QAAI CLI Cheat Sheet</title>
+    <style>
+      :root[data-theme="dark"] {
+        --bg: #2b2b2b;
+        --card-bg: #3a3a3a;
+        --code-bg: #4a4a4a;
+        --text: #e0e0e0;
+        --text-muted: #aaa;
+        --heading: #f0a500;
+        --border: #555;
+        --copy-btn: #666;
+        --copy-btn-hover: #888;
+        --copy-success: #4caf50;
+        --toggle-bg: #555;
+        --shadow: rgba(0, 0, 0, 0.4);
+        --quick-bg: #1e1e1e;
+        --quick-border: #444;
+        --quick-tag: #3a3a3a;
+      }
+      :root[data-theme="light"] {
+        --bg: #f4f4f4;
+        --card-bg: #ffffff;
+        --code-bg: #e8e8e8;
+        --text: #222;
+        --text-muted: #555;
+        --heading: #c07000;
+        --border: #ccc;
+        --copy-btn: #bbb;
+        --copy-btn-hover: #999;
+        --copy-success: #388e3c;
+        --toggle-bg: #ccc;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --quick-bg: #fff;
+        --quick-border: #ddd;
+        --quick-tag: #eee;
+      }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      padding: 32px 16px;
-      transition: background 0.2s, color 0.2s;
-    }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        padding: 32px 0;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
 
-    /* max-w-7xl: 80rem centered */
-    .container {
-      max-width: 80rem;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-    }
+      /* centered container, narrows with side margins below 1280px */
+      .container {
+        max-width: 80rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        padding-left: 8%;
+        padding-right: 8%;
+      }
 
-    /* ── Header ── */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+      @media (min-width: 1281px) {
+        .container {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+      }
 
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
+      /* ── Header ── */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
 
-    @media (max-width: 480px) {
-      h1 { font-size: 1.4rem; }
-    }
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
 
-    .toggle-btn {
-      background: var(--toggle-bg);
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      padding: 6px 14px;
-      font-size: 0.85rem;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-      white-space: nowrap;
-    }
-    .toggle-btn:hover { opacity: 0.8; }
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.4rem;
+        }
+      }
 
-    /* ── Quick Reference Bar ── */
-    .quick-ref {
-      background: var(--quick-bg);
-      border: 1px solid var(--quick-border);
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 36px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
+      .toggle-btn {
+        background: var(--toggle-bg);
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        padding: 6px 14px;
+        font-size: 0.85rem;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.2s;
+        white-space: nowrap;
+      }
+      .toggle-btn:hover {
+        opacity: 0.8;
+      }
 
-    .quick-ref-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--text-muted);
-      margin-right: 4px;
-      white-space: nowrap;
-    }
+      /* ── Quick Reference Bar ── */
+      .quick-ref {
+        background: var(--quick-bg);
+        border: 1px solid var(--quick-border);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 36px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
 
-    .quick-tag {
-      background: var(--quick-tag);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-family: 'Consolas', 'Fira Code', monospace;
-      font-size: 0.8rem;
-      color: var(--heading);
-      cursor: pointer;
-      transition: opacity 0.15s;
-      white-space: nowrap;
-    }
-    .quick-tag:hover { opacity: 0.75; }
+      .quick-ref-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: var(--text-muted);
+        margin-right: 4px;
+        white-space: nowrap;
+      }
 
-    /* ── Sections ── */
-    section { margin-bottom: 32px; }
+      .quick-tag {
+        background: var(--quick-tag);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-family: "Consolas", "Fira Code", monospace;
+        font-size: 0.8rem;
+        color: var(--heading);
+        cursor: pointer;
+        transition: opacity 0.15s;
+        white-space: nowrap;
+      }
+      .quick-tag:hover {
+        opacity: 0.75;
+      }
 
-    .section-title {
-      color: var(--heading);
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 14px;
-    }
+      /* ── Sections ── */
+      section {
+        margin-bottom: 32px;
+      }
 
-    /* ── Grid: 1 col mobile → 2 col md → 3 col 2xl ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
+      .section-title {
+        color: var(--heading);
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+      }
 
-    @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
-    }
+      /* ── Grid: 1 col mobile → 3 col desktop ── */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
 
-    @media (min-width: 1536px) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
-    }
+      @media (max-width: 640px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    /* ── Card ── */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 16px;
-      box-shadow: 0 2px 6px var(--shadow);
-    }
+      /* ── Card ── */
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px 16px;
+        box-shadow: 0 2px 6px var(--shadow);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
 
-    .card-desc {
-      font-size: 0.9rem;
-      color: var(--text);
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
+      .card-desc {
+        font-size: 0.9rem;
+        color: var(--text);
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
 
-    .code-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+      .code-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-    .code-block {
-      background: var(--code-bg);
-      border-radius: 5px;
-      padding: 7px 12px;
-      font-family: 'Consolas', 'Fira Code', monospace;
-      font-size: 0.85rem;
-      color: var(--text);
-      flex: 1;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
+      .code-block {
+        background: var(--code-bg);
+        border-radius: 5px;
+        padding: 7px 12px;
+        font-family: "Consolas", "Fira Code", monospace;
+        font-size: 0.85rem;
+        color: var(--text);
+        flex: 1;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
 
-    .copy-btn {
-      background: var(--copy-btn);
-      border: none;
-      border-radius: 5px;
-      color: var(--text);
-      cursor: pointer;
-      font-size: 0.75rem;
-      padding: 6px 10px;
-      flex-shrink: 0;
-      transition: background 0.15s, color 0.15s;
-    }
-    .copy-btn:hover { background: var(--copy-btn-hover); }
-    .copy-btn.copied { background: var(--copy-success); color: #fff; }
-  </style>
-</head>
-<body>
-<div class="container">
+      .copy-btn {
+        background: var(--copy-btn);
+        border: none;
+        border-radius: 5px;
+        color: var(--text);
+        cursor: pointer;
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        flex-shrink: 0;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .copy-btn:hover {
+        background: var(--copy-btn-hover);
+      }
+      .copy-btn.copied {
+        background: var(--copy-success);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>QAAI CLI Cheat Sheet</h1>
+        <button class="toggle-btn" onclick="toggleTheme()">
+          <span id="theme-icon">☀️</span>
+          <span id="theme-label">Light Mode</span>
+        </button>
+      </header>
 
-  <header>
-    <h1>QAAI CLI Cheat Sheet</h1>
-    <button class="toggle-btn" onclick="toggleTheme()">
-      <span id="theme-icon">☀️</span>
-      <span id="theme-label">Light Mode</span>
-    </button>
-  </header>
-
-  <!-- Quick Reference Bar -->
-  <div class="quick-ref">
-    <span class="quick-ref-label">Quick:</span>
-    <span class="quick-tag" onclick="scrollTo('open-websites')">qaai open chrome &lt;shortcut&gt;</span>
-    <span class="quick-tag" onclick="scrollTo('search')">qaai search google &lt;query&gt;</span>
-    <span class="quick-tag" onclick="scrollTo('open-apps')">qaai app vscode</span>
-    <span class="quick-tag" onclick="scrollTo('installation')">npm install -g qaai</span>
-    <span class="quick-tag" onclick="scrollTo('shortcuts')">URL shortcuts →</span>
-  </div>
-
-  <!-- Open Websites -->
-  <section id="open-websites">
-    <div class="section-title">Open Websites</div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-desc">Open a shortcut (e.g. github) in Chrome:</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome github</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome github')">Copy</button>
-        </div>
+      <!-- Quick Reference Bar -->
+      <div class="quick-ref">
+        <span class="quick-ref-label">Quick:</span>
+        <span class="quick-tag" onclick="scrollTo('open-websites')"
+          >qaai go &lt;shortcut&gt;</span
+        >
+        <span class="quick-tag" onclick="scrollTo('search')"
+          >qaai search &lt;query&gt;</span
+        >
+        <span class="quick-tag" onclick="scrollTo('open-apps')"
+          >qaai launch vscode</span
+        >
+        <span class="quick-tag" onclick="scrollTo('installation')"
+          >npm install -g qaai-cli</span
+        >
+        <span class="quick-tag" onclick="scrollTo('shortcuts')"
+          >URL shortcuts →</span
+        >
       </div>
-      <div class="card">
-        <div class="card-desc">Open any URL directly in Chrome:</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome https://example.com</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome https://example.com')">Copy</button>
+
+      <!-- Open Websites -->
+      <section id="open-websites">
+        <div class="section-title">Open Websites</div>
+        <div class="grid">
+          <div class="card">
+            <div class="card-desc">Open a shortcut (e.g. github):</div>
+            <div class="code-row">
+              <div class="code-block">qaai go github</div>
+              <button class="copy-btn" onclick="copy(this, 'qaai go github')">
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">Open any URL directly:</div>
+            <div class="code-row">
+              <div class="code-block">qaai go https://example.com</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai go https://example.com')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Search -->
+      <section id="search">
+        <div class="section-title">Search</div>
+        <div class="grid">
+          <div class="card">
+            <div class="card-desc">Search Google for a single-word query:</div>
+            <div class="code-row">
+              <div class="code-block">qaai search typescript</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai search typescript')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">Search Google for a multi-word query:</div>
+            <div class="code-row">
+              <div class="code-block">qaai search react hooks tutorial</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai search react hooks tutorial')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Open Apps -->
+      <section id="open-apps">
+        <div class="section-title">Open Apps</div>
+        <div class="grid">
+          <div class="card">
+            <div class="card-desc">Open VSCode in the current directory:</div>
+            <div class="code-row">
+              <div class="code-block">qaai launch vscode</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai launch vscode')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">Open VSCode at a specific folder path:</div>
+            <div class="code-row">
+              <div class="code-block">qaai launch vscode D:\my-project</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai launch vscode D:\\my-project')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Installation -->
+      <section id="installation">
+        <div class="section-title">Installation</div>
+        <div class="grid">
+          <div class="card">
+            <div class="card-desc">Install qaai globally from npm:</div>
+            <div class="code-row">
+              <div class="code-block">npm install -g qaai-cli</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'npm install -g qaai-cli')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">
+              Link locally for development and testing:
+            </div>
+            <div class="code-row">
+              <div class="code-block">npm link</div>
+              <button class="copy-btn" onclick="copy(this, 'npm link')">
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- URL Shortcuts -->
+      <section id="shortcuts">
+        <div class="section-title">Available URL Shortcuts</div>
+        <div class="grid">
+          <div class="card">
+            <div class="card-desc">github → https://github.com</div>
+            <div class="code-row">
+              <div class="code-block">qaai go github</div>
+              <button class="copy-btn" onclick="copy(this, 'qaai go github')">
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">gmail → https://mail.google.com</div>
+            <div class="code-row">
+              <div class="code-block">qaai go gmail</div>
+              <button class="copy-btn" onclick="copy(this, 'qaai go gmail')">
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">youtube → https://youtube.com</div>
+            <div class="code-row">
+              <div class="code-block">qaai go youtube</div>
+              <button class="copy-btn" onclick="copy(this, 'qaai go youtube')">
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">
+              stackoverflow → https://stackoverflow.com
+            </div>
+            <div class="code-row">
+              <div class="code-block">qaai go stackoverflow</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai go stackoverflow')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">npmjs → https://npmjs.com</div>
+            <div class="code-row">
+              <div class="code-block">qaai go npmjs</div>
+              <button class="copy-btn" onclick="copy(this, 'qaai go npmjs')">
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">localhost → http://localhost:3000</div>
+            <div class="code-row">
+              <div class="code-block">qaai go localhost</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai go localhost')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-desc">qaplayground → https://qaplayground.com</div>
+            <div class="code-row">
+              <div class="code-block">qaai go qaplayground</div>
+              <button
+                class="copy-btn"
+                onclick="copy(this, 'qaai go qaplayground')"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
+    <!-- /container -->
 
-  <!-- Search -->
-  <section id="search">
-    <div class="section-title">Search</div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-desc">Search Google for a single-word query:</div>
-        <div class="code-row">
-          <div class="code-block">qaai search google typescript</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai search google typescript')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">Search Google for a multi-word query:</div>
-        <div class="code-row">
-          <div class="code-block">qaai search google react hooks tutorial</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai search google react hooks tutorial')">Copy</button>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+      function copy(btn, text) {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.textContent = "Copied!";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Copy";
+            btn.classList.remove("copied");
+          }, 1500);
+        });
+      }
 
-  <!-- Open Apps -->
-  <section id="open-apps">
-    <div class="section-title">Open Apps</div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-desc">Open VSCode in the current directory:</div>
-        <div class="code-row">
-          <div class="code-block">qaai app vscode</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai app vscode')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">Open VSCode at a specific folder path:</div>
-        <div class="code-row">
-          <div class="code-block">qaai app vscode ./my-project</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai app vscode ./my-project')">Copy</button>
-        </div>
-      </div>
-    </div>
-  </section>
+      function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.getAttribute("data-theme") === "dark";
+        html.setAttribute("data-theme", isDark ? "light" : "dark");
+        document.getElementById("theme-icon").textContent = isDark
+          ? "🌙"
+          : "☀️";
+        document.getElementById("theme-label").textContent = isDark
+          ? "Dark Mode"
+          : "Light Mode";
+      }
 
-  <!-- Installation -->
-  <section id="installation">
-    <div class="section-title">Installation</div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-desc">Install qaai globally from npm:</div>
-        <div class="code-row">
-          <div class="code-block">npm install -g qaai</div>
-          <button class="copy-btn" onclick="copy(this, 'npm install -g qaai')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">Link locally for development and testing:</div>
-        <div class="code-row">
-          <div class="code-block">npm link</div>
-          <button class="copy-btn" onclick="copy(this, 'npm link')">Copy</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- URL Shortcuts -->
-  <section id="shortcuts">
-    <div class="section-title">Available URL Shortcuts</div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-desc">github → https://github.com</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome github</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome github')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">gmail → https://mail.google.com</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome gmail</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome gmail')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">youtube → https://youtube.com</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome youtube</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome youtube')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">stackoverflow → https://stackoverflow.com</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome stackoverflow</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome stackoverflow')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">npmjs → https://npmjs.com</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome npmjs</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome npmjs')">Copy</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-desc">localhost → http://localhost:3000</div>
-        <div class="code-row">
-          <div class="code-block">qaai open chrome localhost</div>
-          <button class="copy-btn" onclick="copy(this, 'qaai open chrome localhost')">Copy</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</div><!-- /container -->
-
-<script>
-  function copy(btn, text) {
-    navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copy';
-        btn.classList.remove('copied');
-      }, 1500);
-    });
-  }
-
-  function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.getAttribute('data-theme') === 'dark';
-    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
-    document.getElementById('theme-label').textContent = isDark ? 'Dark Mode' : 'Light Mode';
-  }
-
-  function scrollTo(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-</script>
-
-</body>
+      function scrollTo(id) {
+        document
+          .getElementById(id)
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    </script>
+  </body>
 </html>

@@ -12,6 +12,12 @@ A personal command-line automation tool for opening websites, searching the web,
 npm install -g qaai-cli
 ```
 
+### For latest updates
+
+```bash
+npm update -g qaai-cli
+```
+
 ### For local development
 
 ```bash
