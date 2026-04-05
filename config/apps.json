@@ -1,9 +1,10 @@
 {
-  "vscode":    "code",
-  "brave":     "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
-  "postman":   "C:\\Users\\%USERNAME%\\AppData\\Local\\Postman\\Postman.exe",
-  "chrome":    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  "firefox":   "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
-  "notepad":   "notepad",
-  "explorer":  "explorer"
+  "vscode": "code",
+  "brave": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+  "postman": "C:\\Users\\%USERNAME%\\AppData\\Local\\Postman\\Postman.exe",
+  "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "firefox": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "notepad": "notepad",
+  "explorer": "explorer",
+  "terminal": "cmd"
 }

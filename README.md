@@ -9,7 +9,7 @@ A personal command-line automation tool for opening websites, searching the web,
 ### From npm (global)
 
 ```bash
-npm install -g qaai
+npm install -g qaai-cli
 ```
 
 ### For local development
