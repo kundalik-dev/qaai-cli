@@ -1,10 +1,13 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
-const os = require('os');
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
+import os from 'os';
+import { fileURLToPath } from 'url';
 
-module.exports = async (args) => {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default async (args) => {
   const port = args[0] || 3131;
   const htmlFile = path.join(__dirname, '..', '..', 'commands.html');
 
@@ -23,7 +26,6 @@ module.exports = async (args) => {
     console.log(`\n  QAAI Dashboard running at ${url}\n`);
     console.log('  Press Ctrl+C to stop.\n');
 
-    // Auto-open in browser
     const platform = os.platform();
     const cmd = platform === 'win32' ? `start "" "${url}"`
               : platform === 'darwin' ? `open "${url}"`

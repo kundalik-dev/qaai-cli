@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { route } = require('../core/router');
+import { route } from '../core/router.js';
 
 const args = process.argv.slice(2);
 route(args);

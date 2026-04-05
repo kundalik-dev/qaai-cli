@@ -1,8 +1,13 @@
-const { openUrl } = require('../../utils/os');
-const shortcuts = require('../../config/shortcuts.json');
+import { openUrl } from '../../utils/os.js';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-module.exports = async (args) => {
-  const [target, ...rest] = args;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const shortcuts = JSON.parse(readFileSync(path.join(__dirname, '../../config/shortcuts.json'), 'utf8'));
+
+export default async (args) => {
+  const [target] = args;
 
   if (!target) {
     console.error('Usage: qaai open chrome <url|shortcut>');

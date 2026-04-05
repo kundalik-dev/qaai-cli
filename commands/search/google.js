@@ -1,6 +1,6 @@
-const { openUrl } = require('../../utils/os');
+import { openUrl } from '../../utils/os.js';
 
-module.exports = async (args) => {
+export default async (args) => {
   if (!args.length) {
     console.error('Usage: qaai search google <query>');
     process.exit(1);

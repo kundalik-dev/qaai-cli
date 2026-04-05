@@ -1,4 +1,4 @@
-async function execute(commandFn, args) {
+export async function execute(commandFn, args) {
   try {
     await commandFn(args);
   } catch (err) {
@@ -6,5 +6,3 @@ async function execute(commandFn, args) {
     process.exit(1);
   }
 }
-
-module.exports = { execute };

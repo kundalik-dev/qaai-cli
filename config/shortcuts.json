@@ -4,5 +4,6 @@
   "youtube": "https://youtube.com",
   "stackoverflow": "https://stackoverflow.com",
   "npmjs": "https://npmjs.com",
-  "localhost": "http://localhost:3000"
+  "localhost": "http://localhost:3000",
+  "qaplayground": "https://qaplayground.com"
 }

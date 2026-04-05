@@ -2,6 +2,7 @@
   "name": "qaai",
   "version": "1.0.0",
   "description": "Personal CLI automation tool — open URLs, apps, search, and dev workflows",
+  "type": "module",
   "main": "bin/index.js",
   "bin": {
     "qaai": "./bin/index.js"
@@ -9,8 +10,12 @@
   "scripts": {
     "start": "node bin/index.js"
   },
-  "keywords": ["cli", "automation", "productivity"],
-  "author": "",
+  "keywords": [
+    "cli",
+    "automation",
+    "productivity"
+  ],
+  "author": "Kundalik Jadhav",
   "license": "MIT",
   "dependencies": {}
 }
