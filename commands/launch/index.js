@@ -11,7 +11,7 @@ export default async (args) => {
   const [appName, ...rest] = args;
 
   if (!appName) {
-    console.error('Usage: qaai app <appname> [path]');
+    console.error('Usage: qaai launch <app> [path]');
     console.error('\nAvailable apps:');
     Object.keys(appsConfig).forEach(name => console.error(`  ${name}`));
     console.error('\nTo add an app: edit config/apps.json');
@@ -22,7 +22,7 @@ export default async (args) => {
 
   if (!entry) {
     console.error(`Unknown app: "${appName}"`);
-    console.error(`Run "qaai app" to see available apps, or add it to config/apps.json`);
+    console.error(`Run "qaai launch" to see available apps, or add it to config/apps.json`);
     process.exit(1);
   }
 
@@ -41,10 +41,10 @@ export default async (args) => {
     cmd = extraArg ? `"${appPath}" "${extraArg}"` : `"${appPath}"`;
   }
 
-  console.log(`Opening ${appName}...`);
+  console.log(`Launching ${appName}...`);
   exec(cmd, (err) => {
     if (err) {
-      console.error(`Failed to open ${appName}: ${err.message}`);
+      console.error(`Failed to launch ${appName}: ${err.message}`);
       console.error(`Check the path in config/apps.json for "${appName}"`);
       process.exit(1);
     }

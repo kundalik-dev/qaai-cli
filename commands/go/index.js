@@ -10,11 +10,11 @@ export default async (args) => {
   const [target] = args;
 
   if (!target) {
-    console.error('Usage: qaai open chrome <url|shortcut>');
+    console.error('Usage: qaai go <url|shortcut>');
     process.exit(1);
   }
 
   const url = shortcuts[target] || (target.startsWith('http') ? target : `https://${target}`);
-  console.log(`Opening ${url} in Chrome...`);
+  console.log(`Opening ${url}...`);
   openUrl(url);
 };

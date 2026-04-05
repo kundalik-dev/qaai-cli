@@ -5,8 +5,25 @@ import { execute } from './executor.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const ALIASES = {
+  '-g': 'go',
+  '-s': 'search',
+  '-l': 'launch',
+  '-d': 'dash',
+  '-h': 'help',
+};
+
 export async function route(argv) {
-  const [level1, level2, ...args] = argv;
+  let [level1, level2, ...args] = argv;
+
+  // Resolve dash flags
+  if (ALIASES[level1]) {
+    level1 = ALIASES[level1];
+    if (level2) {
+      args = [level2, ...args];
+      level2 = undefined;
+    }
+  }
 
   if (!level1 || level1 === 'help') {
     const helpPath = path.join(__dirname, '..', 'commands', 'help', 'index.js');

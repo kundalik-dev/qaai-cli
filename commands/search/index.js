@@ -2,7 +2,7 @@ import { openUrl } from '../../utils/os.js';
 
 export default async (args) => {
   if (!args.length) {
-    console.error('Usage: qaai search google <query>');
+    console.error('Usage: qaai search <query>');
     process.exit(1);
   }
 

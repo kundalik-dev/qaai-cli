@@ -6,6 +6,4 @@ npm-debug.log*
 Thumbs.db
 
 # Documentation
-PLAN.md
-cli-plan.md
-npm-commands.md
+*.md 
